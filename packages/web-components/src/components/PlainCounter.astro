@@ -1,0 +1,28 @@
+---
+---
+
+<div id="div-counter">
+  <button aria-label="decrement">Decrement</button>
+  <span aria-label="count">0</span> 
+  <button aria-label="increment">Increment</button>
+</div>
+
+<script>
+  const counterDiv = document.getElementById("div-counter");
+  const countSpan = counterDiv.querySelector("[aria-label='count']");
+  const parsed = Number.parseInt(countSpan.textContent);
+  let count = Number.isNaN(parsed) ? 0 : parsed;
+
+  const decrementButton = counterDiv.querySelector("[aria-label='decrement']");
+  const incrementButton = counterDiv.querySelector("[aria-label='increment']");
+  
+  decrementButton.addEventListener("click", () => {
+    count--;
+    countSpan.textContent = count.toString();
+  });
+
+  incrementButton.addEventListener("click", () => {
+    count++;
+    countSpan.textContent = count.toString();
+  });
+</script>

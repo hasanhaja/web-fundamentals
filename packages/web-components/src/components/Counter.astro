@@ -1,0 +1,34 @@
+---
+---
+<custom-counter>
+  <button aria-label="decrement">Decrement</button>
+  <span aria-label="count">0</span> 
+  <button aria-label="increment">Increment</button>
+</custom-counter>
+
+<script>
+  class Counter extends HTMLElement {
+    constructor() {
+      super();
+
+      const countSpan = this.querySelector("[aria-label='count']");
+      const parsed = Number.parseInt(countSpan.textContent);
+      let count = Number.isNaN(parsed) ? 0 : parsed;
+
+      const decrementButton = this.querySelector("[aria-label='decrement']");
+      const incrementButton = this.querySelector("[aria-label='increment']");
+      
+      decrementButton.addEventListener("click", () => {
+        count--;
+        countSpan.textContent = count.toString();
+      });
+
+      incrementButton.addEventListener("click", () => {
+        count++;
+        countSpan.textContent = count.toString();
+      });
+    }
+  }
+
+  customElements.define("custom-counter", Counter);
+</script>

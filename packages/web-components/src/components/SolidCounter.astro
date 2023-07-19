@@ -1,0 +1,34 @@
+---
+---
+<solid-counter>
+  <button aria-label="decrement">Decrement</button>
+  <span aria-label="count">0</span> 
+  <button aria-label="increment">Increment</button>
+</solid-counter>
+
+<script>
+  import { createSignal, createEffect } from "solid-js";
+
+  class Counter extends HTMLElement {
+    constructor() {
+      super();
+
+      const countSpan = this.querySelector("[aria-label='count']");
+      const parsed = Number.parseInt(countSpan.textContent);
+      const [count, setCount] = createSignal(Number.isNaN(parsed) ? 0 : parsed);
+
+      createEffect(() => {
+        countSpan.textContent = count().toString();
+      });
+
+      const decrementButton = this.querySelector("[aria-label='decrement']");
+      const incrementButton = this.querySelector("[aria-label='increment']");
+      
+      decrementButton.addEventListener("click", () => setCount(prev => prev - 1));
+
+      incrementButton.addEventListener("click", () => setCount(prev => prev + 1));
+    }
+  }
+
+  customElements.define("solid-counter", Counter);
+</script>
