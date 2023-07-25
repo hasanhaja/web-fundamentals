@@ -1,7 +1,9 @@
 ---
 ---
 <web-timer>
-  <p>Timer: <span aria-label="count">0</span></p>
+  <button aria-label="add-timer">Add timer</button>
+  <div aria-label="timers">
+  </div>
 </web-timer>
 
 <script>
@@ -9,16 +11,36 @@
     constructor() {
       super();
 
-      const countSpan = this.querySelector("[aria-label='count']");
-      const parsed = Number.parseInt(countSpan.textContent);
-      let count = Number.isNaN(parsed) ? 0 : parsed;
+      // TODO consider moving this to a class property
+      const timersDiv = this.querySelector("[aria-label='timers']");
+      const addTimerButton = this.querySelector("[aria-label='add-timer']");
 
-      const timer = setInterval(() => {
-        count++;
+      // TODO Consider adding this only after the component has mounted
+      timersDiv.textContent = "No timers running";
+
+      addTimerButton?.addEventListener("click", () => {
+        // TODO move this to a reuseable function
+        if (timersDiv.textContent === "No timers running") {
+          timersDiv.textContent = null;
+        }
+
+        const countParagraph = document.createElement("p");
+        const countSpan = document.createElement("span");
+        let count = 0;
+
+        // TODO keep track of all the timers so they can be cleared
+        const timer = setInterval(() => {
+          count++;
+          countSpan.textContent = count.toString();
+        }, 1000);
+        
+        countParagraph.textContent = "Count: ";
         countSpan.textContent = count.toString();
-      }, 1000);
+        countParagraph.appendChild(countSpan);
+        timersDiv.appendChild(countParagraph);
+      });
     }
-  };
+  }
 
   customElements.define("web-timer", WebTimer);
 </script>
