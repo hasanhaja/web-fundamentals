@@ -1,46 +1,74 @@
 ---
 ---
-<web-timer>
+<x-timers>
   <button aria-label="add-timer">Add timer</button>
+  <button aria-label="clear-timers">Clear timers</button>
   <div aria-label="timers">
   </div>
-</web-timer>
+</x-timers>
 
 <script>
-  class WebTimer extends HTMLElement {
+  class Timer extends HTMLElement {
+    constructor() {
+      super();
+      this.count = 0;
+      this.countSpan = document.createElement("span");
+      
+      this.timer = setInterval(() => {
+        console.log("Timer called");
+        this.count++; 
+        this.countSpan.textContent = this.count.toString();
+      }, 1000);
+    }
+
+    connectedCallback() {
+      console.log("x-timer connected");
+      const countParagraph = document.createElement("p");
+      this.countSpan = document.createElement("span");
+
+      countParagraph.textContent = "Count: ";
+      this.countSpan.textContent = this.count.toString();
+      countParagraph.appendChild(this.countSpan);
+      this.appendChild(countParagraph);
+    }
+
+    disconnectedCallback() {
+      console.log("x-timer disconnected");
+      clearInterval(this.timer);
+    }
+  }
+
+  class Timers extends HTMLElement {
     constructor() {
       super();
 
       // TODO consider moving this to a class property
       const timersDiv = this.querySelector("[aria-label='timers']");
       const addTimerButton = this.querySelector("[aria-label='add-timer']");
+      const clearTimersButton = this.querySelector("[aria-label='clear-timers']");
 
       // TODO Consider adding this only after the component has mounted
       timersDiv.textContent = "No timers running";
+
+      clearTimersButton?.addEventListener("click", () => {
+        timersDiv.textContent = "No timers running";
+      });
 
       addTimerButton?.addEventListener("click", () => {
         // TODO move this to a reuseable function
         if (timersDiv.textContent === "No timers running") {
           timersDiv.textContent = null;
         }
-
-        const countParagraph = document.createElement("p");
-        const countSpan = document.createElement("span");
-        let count = 0;
-
-        // TODO keep track of all the timers so they can be cleared
-        const timer = setInterval(() => {
-          count++;
-          countSpan.textContent = count.toString();
-        }, 1000);
-        
-        countParagraph.textContent = "Count: ";
-        countSpan.textContent = count.toString();
-        countParagraph.appendChild(countSpan);
-        timersDiv.appendChild(countParagraph);
+        const xTimer = document.createElement("x-timer");
+        timersDiv.appendChild(xTimer);
       });
+    }
+    
+    connectedCallback() {
+      console.log("x-timers connected");
     }
   }
 
-  customElements.define("web-timer", WebTimer);
+  customElements.define("x-timer", Timer);
+  customElements.define("x-timers", Timers);
 </script>
