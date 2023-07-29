@@ -9,13 +9,18 @@
 
 <script>
   class Timer extends HTMLElement {
+    count: number;
+    countSpan: HTMLElement;
+    timerId: number;
+
     constructor() {
       super();
       this.count = 0;
       this.countSpan = document.createElement("span");
       
-      this.timer = setInterval(() => {
+      this.timerId = setInterval(() => {
         console.log("Timer called");
+
         this.count++; 
         this.countSpan.textContent = this.count.toString();
       }, 1000);
@@ -23,39 +28,40 @@
 
     connectedCallback() {
       console.log("x-timer connected");
-      const countParagraph = document.createElement("p");
-      this.countSpan = document.createElement("span");
 
+      const countParagraph = document.createElement("p");
       countParagraph.textContent = "Count: ";
       this.countSpan.textContent = this.count.toString();
+
       countParagraph.appendChild(this.countSpan);
       this.appendChild(countParagraph);
     }
 
     disconnectedCallback() {
       console.log("x-timer disconnected");
-      clearInterval(this.timer);
-    }
+
+      clearInterval(this.timerId);
+    
   }
 
   class Timers extends HTMLElement {
     constructor() {
       super();
 
-      // TODO consider moving this to a class property
       const timersDiv = this.querySelector("[aria-label='timers']");
       const addTimerButton = this.querySelector("[aria-label='add-timer']");
       const clearTimersButton = this.querySelector("[aria-label='clear-timers']");
 
-      // TODO Consider adding this only after the component has mounted
+      // Default state
       timersDiv.textContent = "No timers running";
 
       clearTimersButton?.addEventListener("click", () => {
+        // Return to default state
         timersDiv.textContent = "No timers running";
       });
 
       addTimerButton?.addEventListener("click", () => {
-        // TODO move this to a reuseable function
+        // Clear timers div if no timers present
         if (timersDiv.textContent === "No timers running") {
           timersDiv.textContent = null;
         }
