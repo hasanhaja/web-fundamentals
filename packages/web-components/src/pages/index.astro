@@ -17,12 +17,17 @@ import Timers from "../components/Timers.astro";
         <h2>A single timer</h2>
         <x-timer />
       </article>
-      <article class="timers">
+      <article>
+        <h2>A solid timer</h2>
+        <solid-timer />
+      </article>
+      <article>
         <h2>Dynamic timers</h2>
         <Timers />
       </article>
     </main>
     <script src="../scripts/timer.ts"></script>
+    <script src="../scripts/solidTimer.ts"></script>
 	</body>
 </html>
 
@@ -31,12 +36,12 @@ import Timers from "../components/Timers.astro";
   
   *, *::before, *::after {
     box-sizing: border-box;
+    font-family: 'Crete Round', serif;
   }
 
   :root {
     color: #212121;
     font-size: 16px;
-    font-family: 'Crete Round', serif;
     --article-background-color: #CD7672; 
     --article-shadow-color: #534666; 
     --primary-button-color: #138086; 
@@ -64,6 +69,7 @@ import Timers from "../components/Timers.astro";
     padding-inline: 1rem;
     padding-block: 0.5rem;
     margin-inline: 0.2rem;
+    margin-block: 0.2rem;
     border-radius: 0.4rem;
     box-shadow: 0.15rem 0.15rem #212121;
 
@@ -82,8 +88,13 @@ import Timers from "../components/Timers.astro";
     box-shadow: 0 0 #212121;
     transform: translateY(0.075rem) translateX(0.075rem);
   }
+  
+  article:nth-child(2) {
+    --article-background-color: #FFECD1;
+    --article-shadow-color: #78290F;
+  }
 
-  .timers {
+  article:last-child {
     --article-background-color: #EEB462;
     --article-shadow-color: #138086;
   }
