@@ -13,7 +13,10 @@
   class Timers extends HTMLElement {
     constructor() {
       super();
-
+    }
+    
+    connectedCallback() {
+      console.log("x-timers connected");
       const timersDiv = this.querySelector("[aria-label='timers']");
       const addTimerButton = this.querySelector("[aria-label='add-timer']");
       const clearTimersButton = this.querySelector("[aria-label='clear-timers']");
@@ -34,10 +37,6 @@
         const xTimer = document.createElement("x-timer");
         timersDiv.prepend(xTimer);
       });
-    }
-    
-    connectedCallback() {
-      console.log("x-timers connected");
     }
   }
 
