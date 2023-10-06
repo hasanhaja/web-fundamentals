@@ -1,0 +1,44 @@
+---
+---
+<x-timers>
+  <button aria-label="add-timer">Add timer</button>
+  <button aria-label="clear-timers">Clear timers</button>
+  <div aria-label="timers">
+  </div>
+</x-timers>
+
+<script src="../scripts/timer.ts"></script>
+
+<script>
+  class Timers extends HTMLElement {
+    constructor() {
+      super();
+    }
+    
+    connectedCallback() {
+      console.log("x-timers connected");
+      const timersDiv = this.querySelector("[aria-label='timers']");
+      const addTimerButton = this.querySelector("[aria-label='add-timer']");
+      const clearTimersButton = this.querySelector("[aria-label='clear-timers']");
+
+      // Default state
+      timersDiv.textContent = "No timers running";
+
+      clearTimersButton?.addEventListener("click", () => {
+        // Return to default state
+        timersDiv.textContent = "No timers running";
+      });
+
+      addTimerButton?.addEventListener("click", () => {
+        // Clear timers div if no timers present
+        if (timersDiv.textContent === "No timers running") {
+          timersDiv.textContent = null;
+        }
+        const xTimer = document.createElement("x-timer");
+        timersDiv.prepend(xTimer);
+      });
+    }
+  }
+
+  customElements.define("x-timers", Timers);
+</script>

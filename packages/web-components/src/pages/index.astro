@@ -1,8 +1,5 @@
 ---
-import PlainCounter from "../components/PlainCounter.astro";
-import Counter from "../components/Counter.astro";
-import SolidCounter from "../components/SolidCounter.astro";
-import Timer from "../components/Timer.astro";
+import Timers from "../components/Timers.astro";
 ---
 
 <html lang="en">
@@ -15,14 +12,90 @@ import Timer from "../components/Timer.astro";
 	</head>
 	<body>
 		<h1>Web components demo</h1>
-    <p>Div component</p>
-    <PlainCounter />
-    <p>Web component</p>
-    <Counter />
-    <p>Web component powered by SolidJS</p>
-    <SolidCounter />
-    <p>Timer</p>
-    <Timer />
+    <main>
+      <article>
+        <h2>A single timer</h2>
+        <x-timer />
+      </article>
+      <article>
+        <h2>Dynamic timers</h2>
+        <Timers />
+      </article>
+    </main>
+    <script src="../scripts/timer.ts"></script>
 	</body>
 </html>
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Crete+Round:ital@0;1&display=swap');
+  
+  *, *::before, *::after {
+    box-sizing: border-box;
+    font-family: 'Crete Round', serif;
+  }
+
+  :root {
+    color: #212121;
+    font-size: 16px;
+    --article-background-color: #CD7672; 
+    --article-shadow-color: #534666; 
+    --primary-button-color: #138086; 
+    --secondary-button-color: #EF233C; 
+    --radius: 0.8rem;
+  }
+
+  main {
+    padding-inline: 2rem;
+  }
+  
+  article {
+    background-color: var(--article-background-color);
+    margin-block: 2rem;
+    padding-inline: 1.5rem;
+    padding-block: 1rem;
+    border-radius: var(--radius);
+    box-shadow: 0.4rem 0.4rem var(--article-shadow-color);
+  }
+
+  button {
+    background-color: var(--primary-button-color);
+    color: #fff;
+    border: none;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    margin-inline: 0.2rem;
+    margin-block: 0.2rem;
+    border-radius: 0.4rem;
+    box-shadow: 0.15rem 0.15rem #212121;
+
+    transition: box-shadow 75ms ease-in-out;
+  }
+
+  [aria-label='clear-timers'] {
+    background-color: var(--secondary-button-color);
+  }
+
+  button:hover {
+    filter: brightness(0.8);
+  }
+
+  button:active {
+    box-shadow: 0 0 #212121;
+    transform: translateY(0.075rem) translateX(0.075rem);
+  }
+  
+  article:nth-child(2) {
+    --article-background-color: #FFECD1;
+    --article-shadow-color: #78290F;
+  }
+
+  article:last-child {
+    --article-background-color: #EEB462;
+    --article-shadow-color: #138086;
+  }
+
+  [aria-label='timers'] {
+    margin-block: 1rem;
+  }
+</style>
 
