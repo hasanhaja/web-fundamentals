@@ -1,15 +1,12 @@
 {
-  "name": "",
-  "type": "module",
-  "version": "0.0.1",
+  "name": "web-workers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "astro": "^2.9.1"
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
