@@ -1,4 +1,17 @@
+/*
+ * TODO Comment button opens a dialog for submit. This might need a form handler attribute
+ * TODO 
+ */
 class InfoCard extends HTMLElement {
+  #upVoteBtn;
+  #downVoteBtn;
+  #commentBtn;
+  #commentDialog;
+
+  constructor() {
+    super();
+  }
+
   render() {
     const template = `
       <div>
@@ -13,11 +26,18 @@ class InfoCard extends HTMLElement {
           <div>
             <span>@hasanhaja</span>
             <div>
-              <span>Up</span>
-              <span>Comment</span>
-              <span>Down</span>
+              <button id="up-vote">Up</button>
+              <button id="comment">Comment</button>
+              <button id="down-vote">Down</button>
             </div>
           </div>
+          <dialog>
+            <form method="dialog">
+              <label for="comment-msg">Comment</label>
+              <input name="comment-msg">
+              <button>Send</button>
+            </form>
+          </dialog>
         </div>
       </div>
     `;
@@ -27,6 +47,33 @@ class InfoCard extends HTMLElement {
 
   connectedCallback() {
     this.render();
+
+    this.#upVoteBtn = this.querySelector("#up-vote");
+    this.#downVoteBtn = this.querySelector("#down-vote");
+    this.#commentBtn = this.querySelector("#comment");
+    this.#commentDialog = this.querySelector("dialog");
+
+    const upVoteEvent = new CustomEvent("card-up-vote", {
+      bubbles: true,
+    });
+    
+    const downVoteEvent = new CustomEvent("card-down-vote", {
+      bubbles: true,
+    });
+
+    this.#upVoteBtn.addEventListener("click", (e) => {
+      e.target.dispatchEvent(upVoteEvent);
+      
+    });
+
+    this.#downVoteBtn.addEventListener("click", (e) => {
+      e.target.dispatchEvent(downVoteEvent);
+    });
+
+
+    this.#commentBtn.addEventListener("click", (e) => {
+      this.#commentDialog.showModal(); 
+    });
   }
 }
 
