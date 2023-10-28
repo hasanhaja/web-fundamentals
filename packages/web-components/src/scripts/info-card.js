@@ -16,7 +16,7 @@ class InfoCard extends HTMLElement {
     const template = `
       <div>
         <img 
-          src="https://www.tivix.com/wp-content/uploads/2019/07/_Shot_2015-01-26_at_5.24.15_PM.png" 
+          src="https://nhswd.com/static/4a2336cef7dfbf7f8e628fd9e0be3fa2/acb7c/web-components-official-logo%20copy.png" 
           alt="" 
           height="250px"
         />
@@ -26,9 +26,24 @@ class InfoCard extends HTMLElement {
           <div>
             <span>@hasanhaja</span>
             <div>
-              <button id="up-vote">Up</button>
-              <button id="comment">Comment</button>
-              <button id="down-vote">Down</button>
+              <button id="up-vote">
+                <span class="sr-only">Up</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
+                </svg>
+              </button>
+              <button id="comment">
+                <span class="sr-only">Comment</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z" />
+                </svg>
+              </button>
+              <button id="down-vote">
+                <span class="sr-only">Down</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+                </svg>
+              </button>
             </div>
           </div>
           <dialog>
@@ -70,7 +85,7 @@ class InfoCard extends HTMLElement {
       e.target.dispatchEvent(downVoteEvent);
     });
 
-
+    // TODO Comment should emit event with data on submit and clear fields
     this.#commentBtn.addEventListener("click", (e) => {
       this.#commentDialog.showModal(); 
     });

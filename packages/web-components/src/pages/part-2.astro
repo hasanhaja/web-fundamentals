@@ -55,10 +55,63 @@
   info-card > div {
     background: #fff;
     display: flex;
+    gap: 1rem;
+  }
+
+  info-card > div > div {
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+    width: 100%;
+    padding-inline: 0.5rem;
+  }
+
+  info-card > div > div > p {
+    align-self: center;
   }
 
   info-card > div > div > div {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  info-card * {
+    margin: unset;
+  }
+
+  info-card h2 {
+    font-size: 2.5rem;
+  }
+
+  info-card > div > div > div > span {
+    background-color: #CD7672;
+    color: #FFF;
+    height: fit-content;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    border-radius: 0.8rem;
+  }
+
+  info-card > div > div > div > div {
+    height: fit-content;
+  }
+
+
+  info-card button > svg {
+    width: 1.5rem;
+  }
+
+  #comment {
+    background-color: #534666;
+  }
+
+  #down-vote {
+    background-color: var(--secondary-button-color);
+  }
+
+  img, svg, video, picture {
+    display: block;
+    max-width: 100%;
   }
 
   button {
@@ -100,5 +153,15 @@
 
   [aria-label='timers'] {
     margin-block: 1rem;
+  }
+
+  .sr-only {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
   }
 </style>
