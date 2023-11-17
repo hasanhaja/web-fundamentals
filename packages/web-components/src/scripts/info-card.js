@@ -49,8 +49,19 @@ class InfoCard extends HTMLElement {
           <dialog>
             <form method="dialog">
               <label for="comment-msg">Comment</label>
-              <input name="comment-msg">
-              <button>Send</button>
+              <div>
+              <!-- TODO This could become a web component -->
+              <!-- https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/ -->
+              <textarea 
+                rows=3 
+                name="comment-msg"
+                onInput="this.parentNode.dataset.replicatedValue = this.value"
+              ></textarea>
+              </div>
+              <span>
+                <button>Cancel</button>
+                <button>Send</button>
+              </span>
             </form>
           </dialog>
         </div>
