@@ -18,8 +18,8 @@
     <script>
       const infoCard = document.querySelector("info-card");
       infoCard.addEventListener("card-submit-comment", (e) => {
-        const { comment } = e.detail;
-        console.log(`[info-card] Comment: ${comment}`);
+        const { comment, timestamp } = e.detail;
+        console.log(`[info-card] Comment (${new Date(timestamp).toDateString()}): ${comment}`);
       });
       infoCard.addEventListener("card-up-vote", () => {
         console.log(`[info-card] Up voted`);

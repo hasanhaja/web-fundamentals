@@ -62,7 +62,7 @@ class InfoCard extends HTMLElement {
               ></textarea>
               </div>
               <span>
-                <button data-action="cancel">Cancel</button>
+                <button type="button" data-action="cancel">Cancel</button>
                 <button type="submit" data-action="send">Send</button>
               </span>
             </form>
@@ -85,18 +85,12 @@ class InfoCard extends HTMLElement {
     this.#dialogCancel = this.querySelector("[data-action='cancel']");
     this.#dialogSend = this.querySelector("[data-action='send']");
 
-    const upVoteEvent = new CustomEvent("card-up-vote", {
-      bubbles: true,
-    });
-    
-    const downVoteEvent = new CustomEvent("card-down-vote", {
-      bubbles: true,
-    });
-
-    const newComment = (comment) => new CustomEvent("card-submit-comment", {
-      bubbles: true,
+    const upVoteEvent = new CustomEvent("card-up-vote");
+    const downVoteEvent = new CustomEvent("card-down-vote");
+    const newComment = (comment, timestamp) => new CustomEvent("card-submit-comment", {
       detail: {
         comment,
+        timestamp,
       },
     });
 
@@ -111,17 +105,15 @@ class InfoCard extends HTMLElement {
     this.#dialogForm.addEventListener("submit", (e) => {
       const data = new FormData(e.target);
       const comment = data.get("comment-msg");
-      this.dispatchEvent(newComment(comment));
-      e.target.reset();
+      this.dispatchEvent(newComment(comment, Date.now()));
     });
 
-    this.#upVoteBtn.addEventListener("click", (e) => {
-      e.target.dispatchEvent(upVoteEvent);
-      
+    this.#upVoteBtn.addEventListener("click", () => {
+      this.dispatchEvent(upVoteEvent);
     });
 
-    this.#downVoteBtn.addEventListener("click", (e) => {
-      e.target.dispatchEvent(downVoteEvent);
+    this.#downVoteBtn.addEventListener("click", () => {
+      this.dispatchEvent(downVoteEvent);
     });
 
     this.#commentBtn.addEventListener("click", () => {
