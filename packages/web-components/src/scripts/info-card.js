@@ -7,6 +7,9 @@ class InfoCard extends HTMLElement {
   #downVoteBtn;
   #commentBtn;
   #commentDialog;
+  #dialogForm;
+  #dialogCancel;
+  #dialogSend; 
 
   constructor() {
     super();
@@ -59,8 +62,8 @@ class InfoCard extends HTMLElement {
               ></textarea>
               </div>
               <span>
-                <button>Cancel</button>
-                <button>Send</button>
+                <button data-action="cancel">Cancel</button>
+                <button type="submit" data-action="send">Send</button>
               </span>
             </form>
           </dialog>
@@ -78,6 +81,9 @@ class InfoCard extends HTMLElement {
     this.#downVoteBtn = this.querySelector("#down-vote");
     this.#commentBtn = this.querySelector("#comment");
     this.#commentDialog = this.querySelector("dialog");
+    this.#dialogForm = this.querySelector("dialog > form");
+    this.#dialogCancel = this.querySelector("[data-action='cancel']");
+    this.#dialogSend = this.querySelector("[data-action='send']");
 
     const upVoteEvent = new CustomEvent("card-up-vote", {
       bubbles: true,
@@ -85,6 +91,28 @@ class InfoCard extends HTMLElement {
     
     const downVoteEvent = new CustomEvent("card-down-vote", {
       bubbles: true,
+    });
+
+    const newComment = (comment) => new CustomEvent("card-submit-comment", {
+      bubbles: true,
+      detail: {
+        comment,
+      },
+    });
+
+    this.#dialogCancel.addEventListener("click", () => {
+      this.#commentDialog.close();
+    });
+
+    this.#commentDialog.addEventListener("close", () => {
+      this.#dialogForm.reset();
+    });
+
+    this.#dialogForm.addEventListener("submit", (e) => {
+      const data = new FormData(e.target);
+      const comment = data.get("comment-msg");
+      this.dispatchEvent(newComment(comment));
+      e.target.reset();
     });
 
     this.#upVoteBtn.addEventListener("click", (e) => {
@@ -96,8 +124,7 @@ class InfoCard extends HTMLElement {
       e.target.dispatchEvent(downVoteEvent);
     });
 
-    // TODO Comment should emit event with data on submit and clear fields
-    this.#commentBtn.addEventListener("click", (e) => {
+    this.#commentBtn.addEventListener("click", () => {
       this.#commentDialog.showModal(); 
     });
   }

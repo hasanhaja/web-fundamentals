@@ -15,6 +15,19 @@
       <info-card></info-card>
     </main>
     <script src="../scripts/info-card.js"></script>
+    <script>
+      const infoCard = document.querySelector("info-card");
+      infoCard.addEventListener("card-submit-comment", (e) => {
+        const { comment } = e.detail;
+        console.log(`[info-card] Comment: ${comment}`);
+      });
+      infoCard.addEventListener("card-up-vote", () => {
+        console.log(`[info-card] Up voted`);
+      });
+      infoCard.addEventListener("card-down-vote", () => {
+        console.log(`[info-card] Down voted`);
+      });
+    </script>
 	</body>
 </html>
 
