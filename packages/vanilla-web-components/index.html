@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Web Components Part 2</title>
+    <link href="styles.css" rel="stylesheet">
+    <script src="timer.js"></script>
+    <script src="info-card.js"></script>
+	</head>
+	<body>
+		<h1>Web components demo</h1>
+    <main>
+      <x-timer></x-timer>
+      <x-timer x-interval="5"></x-timer>
+      <x-timer x-interval="2"></x-timer>
+      <button>Update timer 2 to 10 seconds</button>
+      <info-card></info-card>
+    </main>
+    <script>
+      const timerTwo = document.querySelector("x-timer[x-interval='2']");
+      const button = document.querySelector("x-timer[x-interval='2'] + button");
+
+      button.addEventListener("click", () => {
+        timerTwo.setAttribute("x-interval", "10");
+      });
+
+      const infoCard = document.querySelector("info-card");
+      infoCard.addEventListener("card-submit-comment", (e) => {
+        const { comment, timestamp } = e.detail;
+        console.log(`[info-card] Comment (${new Date(timestamp).toDateString()}): ${comment}`);
+      });
+      infoCard.addEventListener("card-up-vote", () => {
+        console.log(`[info-card] Up voted`);
+      });
+      infoCard.addEventListener("card-down-vote", () => {
+        console.log(`[info-card] Down voted`);
+      });
+    </script>
+	</body>
+</html>
