@@ -22,6 +22,8 @@ class Timer extends HTMLElement {
     super();
     this.#count = 0;
     this.#countSpan = document.createElement("span");
+
+    console.log("Constructor called");
   }
 
   connectedCallback() {
@@ -30,8 +32,6 @@ class Timer extends HTMLElement {
     const interval = isNaN(parsed) ? 1 : parsed;
     
     this.#timerId = setInterval(() => {
-      console.log("Timer called");
-
       this.#count++; 
       this.#countSpan.textContent = this.#count.toString();
     }, interval * 1000);
@@ -44,17 +44,25 @@ class Timer extends HTMLElement {
     this.appendChild(countParagraph);
   }
 
-  attributeChangedCallback(name, _oldValue, newValue) {
-    if (name === Timer.attrs.interval) {
-      // const parsed = parseInt(newValue);
-      // const interval = isNaN(parsed) ? 1 : parsed;
-      // console.log(this.#timerId);
-      // this.#timerId = setInterval(() => {
-      //   console.log("Re-registered timer called");
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue !== newValue) {
+      if (name === Timer.attrs.interval) {
+        if (this.#timerId === undefined) {
+          return;
+        }
 
-      //   this.#count++; 
-      //   this.#countSpan.textContent = this.#count.toString();
-      // }, interval * 1000);
+        const parsed = parseInt(newValue);
+        const interval = isNaN(parsed) ? 1 : parsed;
+
+        clearInterval(this.#timerId);
+
+        this.#timerId = setInterval(() => {
+          console.log("Re-registered timer called", interval);
+
+          this.#count++; 
+          this.#countSpan.textContent = this.#count.toString();
+        }, interval * 1000);
+      }
     }
   }
 
