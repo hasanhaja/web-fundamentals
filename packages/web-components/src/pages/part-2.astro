@@ -1,0 +1,245 @@
+---
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Web Components Part 2</title>
+	</head>
+	<body>
+		<h1>Web components demo</h1>
+    <main>
+      <info-card></info-card>
+    </main>
+    <script src="../scripts/info-card.js"></script>
+    <script>
+      const infoCard = document.querySelector("info-card");
+      infoCard.addEventListener("card-submit-comment", (e) => {
+        const { comment, timestamp } = e.detail;
+        console.log(`[info-card] Comment (${new Date(timestamp).toDateString()}): ${comment}`);
+      });
+      infoCard.addEventListener("card-up-vote", () => {
+        console.log(`[info-card] Up voted`);
+      });
+      infoCard.addEventListener("card-down-vote", () => {
+        console.log(`[info-card] Down voted`);
+      });
+    </script>
+	</body>
+</html>
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Crete+Round:ital@0;1&display=swap');
+  
+  *, *::before, *::after {
+    box-sizing: border-box;
+    font-family: 'Crete Round', serif;
+  }
+
+  :root {
+    color: #212121;
+    font-size: 16px;
+    --article-background-color: #CD7672; 
+    --article-shadow-color: #534666; 
+    --primary-button-color: #138086; 
+    --secondary-button-color: #EF233C; 
+    --radius: 0.8rem;
+  }
+
+  main {
+    padding-inline: 2rem;
+  }
+  
+  article {
+    background-color: var(--article-background-color);
+    margin-block: 2rem;
+    padding-inline: 1.5rem;
+    padding-block: 1rem;
+    border-radius: var(--radius);
+    box-shadow: 0.4rem 0.4rem var(--article-shadow-color);
+  }
+
+  info-card {
+    --article-background-color: #EEB462;
+    --article-shadow-color: #138086;
+  }
+
+  info-card > div {
+    background: #fff;
+    display: flex;
+    border: 0.15rem solid #212121;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  info-card > div > div {
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+    width: 100%;
+    padding-inline: 1rem;
+
+    background-color: var(--article-background-color);
+  }
+
+  info-card > div > div > p {
+    align-self: center;
+  }
+
+  info-card > div > div > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  info-card :not(dialog) {
+    margin: unset;
+  }
+
+  info-card dialog {
+    border: 0.15rem solid #212121;
+    border-radius: 1rem;
+    width: 85%;
+    max-width: 35rem;
+  }
+  
+  info-card dialog > form > * {
+    display: block;
+    margin-block: 0.8rem;
+  }
+
+  info-card dialog > form > div {
+    margin-block-end: 1.5rem;
+    display: grid;
+  }
+  
+  info-card dialog > form > div::after {
+    /* Note the weird space! Needed to preventy jumpy behavior */
+    content: attr(data-replicated-value) " ";
+
+    /* This is how textarea text behaves */
+    white-space: pre-wrap;
+
+    /* Hidden from view, clicks, and screen readers */
+    visibility: hidden;
+  }
+
+  info-card dialog > form textarea {
+    min-width: 100%;
+    max-width: 100%;
+    resize: none;
+    overflow: hidden;
+    border-radius: 0.5rem;
+  }
+
+  info-card dialog > form textarea,
+  info-card dialog > form > div::after {
+    /* Identical styling required!! */
+    border: 1px solid black;
+    padding: 0.5rem;
+    font: inherit;
+
+    /* Place on top of each other */
+    grid-area: 1 / 1 / 2 / 2;
+  }
+
+  info-card dialog > form > span {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+  }
+
+  info-card dialog > form > span > *:first-child {
+    background-color: #fff;
+    color: #212121;
+    border: 0.15rem solid #212121;
+  }
+
+  info-card h2 {
+    font-size: 2.5rem;
+  }
+
+  info-card > div > div > div > span {
+    background-color: #CD7672;
+    color: #FFF;
+    height: fit-content;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    border: 0.15rem solid #212121;
+    border-radius: 0.8rem;
+  }
+
+  info-card > div > div > div > div {
+    height: fit-content;
+  }
+
+  info-card button > svg {
+    width: 1.5rem;
+  }
+
+  #comment {
+    background-color: #534666;
+  }
+
+  #down-vote {
+    background-color: var(--secondary-button-color);
+  }
+
+  img, svg, video, picture {
+    display: block;
+    max-width: 100%;
+  }
+
+  button {
+    background-color: var(--primary-button-color);
+    color: #fff;
+    border: none;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    margin-inline: 0.2rem;
+    margin-block: 0.2rem;
+    border-radius: 0.4rem;
+    box-shadow: 0.15rem 0.15rem #212121;
+
+    transition: box-shadow 75ms ease-in-out;
+  }
+
+  [aria-label='clear-timers'] {
+    background-color: var(--secondary-button-color);
+  }
+
+  button:hover {
+    filter: brightness(0.8);
+  }
+
+  button:active {
+    box-shadow: 0 0 #212121;
+    transform: translateY(0.075rem) translateX(0.075rem);
+  }
+  
+  article:nth-child(2) {
+    --article-background-color: #FFECD1;
+    --article-shadow-color: #78290F;
+  }
+
+  article:last-child {
+    --article-background-color: #EEB462;
+    --article-shadow-color: #138086;
+  }
+
+  [aria-label='timers'] {
+    margin-block: 1rem;
+  }
+
+  .sr-only {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+</style>
