@@ -57,7 +57,7 @@ class Timer extends HTMLElement {
         clearInterval(this.#timerId);
 
         this.#timerId = setInterval(() => {
-          console.log("Re-registered timer called", interval);
+          console.log("New timer called", interval);
 
           this.#count++; 
           this.#countSpan.textContent = this.#count.toString();
