@@ -48,7 +48,7 @@ class Timer extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue !== newValue) {
       if (name === Timer.attrs.interval) {
-        if (this.#timerId === undefined) {
+        if (!this.isConnected) {
           return;
         }
 
