@@ -20,14 +20,15 @@ class Timer extends HTMLElement {
 
   constructor() {
     super();
-    this.#count = 0;
-    this.#countSpan = document.createElement("span");
-
     console.log("Constructor called");
   }
 
   connectedCallback() {
     console.log("x-timer connected");
+
+    this.#count = 0;
+    this.#countSpan = document.createElement("span");
+
     const parsed = parseInt(this.getAttribute(Timer.attrs.interval));
     const interval = isNaN(parsed) ? 1 : parsed;
     
