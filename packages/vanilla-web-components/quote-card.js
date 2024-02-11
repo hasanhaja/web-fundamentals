@@ -2,7 +2,7 @@
  * TODO Comment button opens a dialog for submit. This might need a form handler attribute
  * TODO 
  */
-class InfoCard extends HTMLElement {
+class QuoteCard extends HTMLElement {
   #upVoteBtn;
   #downVoteBtn;
   #commentBtn;
@@ -122,4 +122,4 @@ class InfoCard extends HTMLElement {
   }
 }
 
-customElements.define("info-card", InfoCard);
+customElements.define("quote-card", QuoteCard);

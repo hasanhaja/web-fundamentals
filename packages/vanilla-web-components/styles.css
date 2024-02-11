@@ -28,12 +28,12 @@ article {
   box-shadow: 0.4rem 0.4rem var(--article-shadow-color);
 }
 
-info-card {
+quote-card {
   --article-background-color: #EEB462;
   --article-shadow-color: #138086;
 }
 
-info-card > div {
+quote-card > div {
   background: #fff;
   display: flex;
   border: 0.15rem solid #212121;
@@ -41,7 +41,7 @@ info-card > div {
   overflow: hidden;
 }
 
-info-card > div > div {
+quote-card > div > div {
   display: grid;
   grid-template-rows: 1fr 2fr 1fr;
   width: 100%;
@@ -50,38 +50,38 @@ info-card > div > div {
   background-color: var(--article-background-color);
 }
 
-info-card > div > div > p {
+quote-card > div > div > p {
   align-self: center;
 }
 
-info-card > div > div > div {
+quote-card > div > div > div {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-info-card :not(dialog) {
+quote-card :not(dialog) {
   margin: unset;
 }
 
-info-card dialog {
+quote-card dialog {
   border: 0.15rem solid #212121;
   border-radius: 1rem;
   width: 85%;
   max-width: 35rem;
 }
 
-info-card dialog > form > * {
+quote-card dialog > form > * {
   display: block;
   margin-block: 0.8rem;
 }
 
-info-card dialog > form > div {
+quote-card dialog > form > div {
   margin-block-end: 1.5rem;
   display: grid;
 }
 
-info-card dialog > form > div::after {
+quote-card dialog > form > div::after {
   /* Note the weird space! Needed to preventy jumpy behavior */
   content: attr(data-replicated-value) " ";
 
@@ -92,7 +92,7 @@ info-card dialog > form > div::after {
   visibility: hidden;
 }
 
-info-card dialog > form textarea {
+quote-card dialog > form textarea {
   min-width: 100%;
   max-width: 100%;
   resize: none;
@@ -100,8 +100,8 @@ info-card dialog > form textarea {
   border-radius: 0.5rem;
 }
 
-info-card dialog > form textarea,
-info-card dialog > form > div::after {
+quote-card dialog > form textarea,
+quote-card dialog > form > div::after {
   /* Identical styling required!! */
   border: 1px solid black;
   padding: 0.5rem;
@@ -111,23 +111,23 @@ info-card dialog > form > div::after {
   grid-area: 1 / 1 / 2 / 2;
 }
 
-info-card dialog > form > span {
+quote-card dialog > form > span {
   display: flex;
   gap: 0.5rem;
   justify-content: flex-end;
 }
 
-info-card dialog > form > span > *:first-child {
+quote-card dialog > form > span > *:first-child {
   background-color: #fff;
   color: #212121;
   border: 0.15rem solid #212121;
 }
 
-info-card h2 {
+quote-card h2 {
   font-size: 2.5rem;
 }
 
-info-card > div > div > div > span {
+quote-card > div > div > div > span {
   background-color: #CD7672;
   color: #FFF;
   height: fit-content;
@@ -137,11 +137,11 @@ info-card > div > div > div > span {
   border-radius: 0.8rem;
 }
 
-info-card > div > div > div > div {
+quote-card > div > div > div > div {
   height: fit-content;
 }
 
-info-card button > svg {
+quote-card button > svg {
   width: 1.5rem;
 }
 
